@@ -151,9 +151,7 @@ INFLUX_LINE="$INFLUXDB_MEASUREMENT\
 "
 echo "$INFLUX_LINE" | sed 's/ /,/g' | tr , '\n'
 
-
-
-curl -X POST -H "Content-Type: application/json" -d $INFLUX_LINE http://localhost:8452/setData
+curl -X POST -H "Content-Type: application/json" -d '{ "success": "true" }' http://localhost:8452/setData
 
 if [ ! -z "$INFLUXDB_URL" ]; then
   info "Shipping metrics"
