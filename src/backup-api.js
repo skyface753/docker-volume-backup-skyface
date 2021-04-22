@@ -9,11 +9,17 @@ var app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+var success, time;
 
 app.post('/test', (req, res) =>{
-        console.log("Hello" + req.body)
-        res.send("Zurück: " + req.body);
+    console.log("Get Data: " + req.body.success + " Time: " + req.body.Time);
+    success = req.body.success;
+    time = req.body.time;
+    res.send("Thanks for the Data");
+})
 
+app.get('test', (req, res) =>{
+    res.send("Last Data: " + success + " at: " + time);
 })
 
 
