@@ -44,7 +44,7 @@ services:
       - ./backups:/archive                              # Mount a local folder as the backup archive
     environment:
       - TZ=Europe/Berlin                                # Timezone for Germany
-      - BACKUP_MAX_NUMBERS=4                            # Store 3 Backups
+      - BACKUP_MAX_NUMBERS=4                            # Store less than 4 Backups => 3 Backups get stored
       - PRE_POST_USER=www-data                          # Execute the "php /var/www/html/occ maintenance:mode" command as the www-data User
 ```
 
