@@ -16,8 +16,11 @@ RUN sh get-docker.sh
 
 COPY ./src/entrypoint.sh /root/
 COPY ./src/backup.sh /root/
+COPY ./src/backup-api.js /root/
+COPY ./src/package.json /root/
 RUN chmod a+x /root/entrypoint.sh
 RUN chmod a+x /root/backup.sh
 
 WORKDIR /root
-CMD [ "/root/entrypoint.sh" ]
+#CMD [ "/root/entrypoint.sh" ]
+CMD [ "sh", "-c", "/root/entrypoint.sh ; npm install > api-npm.log; node /root/backup-api.js > api.log"]
