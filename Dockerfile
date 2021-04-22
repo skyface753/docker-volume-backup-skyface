@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl cron ca-certificates unzip grep nodejs npm
+RUN apt-get update && apt-get install -y --no-install-recommends curl cron ca-certificates unzip
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install awscliv2 https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
@@ -16,11 +16,8 @@ RUN sh get-docker.sh
 
 COPY ./src/entrypoint.sh /root/
 COPY ./src/backup.sh /root/
-COPY ./src/backup-api.js /root/
-COPY ./src/package.json /root/
 RUN chmod a+x /root/entrypoint.sh
 RUN chmod a+x /root/backup.sh
 
 WORKDIR /root
-EXPOSE 8451
-CMD [ "sh", "-c", "/root/entrypoint.sh Master.log ; npm install > /proc/1/fd/1; node /root/backup-api.js > /proc/1/fd/1"]
+CMD [ "/root/entrypoint.sh" ]

@@ -13,6 +13,42 @@ Docker image for performing simple backups of Docker volumes. Main features:
 
 ## Examples
 
+### Nextcloud Backup
+
+Say you're running dome Nextcloud on Docker and want to back them up:
+
+```yml
+version: '3'
+
+services:
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 8080:80
+    links:
+      - db
+    volumes:
+      - ./nextcloud:/var/www/html
+    labels:
+      # These commands will be exec'd (in the same container) before/after the backup starts:
+      - docker-volume-backup.exec-pre-backup=php /var/www/html/occ maintenance:mode --on
+      - docker-volume-backup.exec-post-backup=php /var/www/html/occ maintenance:mode --off
+
+  backup:
+    image: skyface753/backup:1.0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro    # Allow use of the "pre/post exec" feature
+      - ./nextcloud:/backup/nextcloud:ro                # Mount the Nextcloud data so it gets backed up
+      - ./backups:/archive                              # Mount a local folder as the backup archive
+    environment:
+      - TZ=Europe/Berlin                                # Timezone for Germany
+      - BACKUP_MAX_NUMBERS=4                            # Store 3 Backups
+      - PRE_POST_USER=www-data                          # Execute the "php /var/www/html/occ maintenance:mode" command as the www-data User
+```
+
+
 ### Backing up locally
 
 Say you're running some dashboards with [Grafana](https://grafana.com/) and want to back them up:
