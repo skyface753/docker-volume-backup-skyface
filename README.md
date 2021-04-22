@@ -51,8 +51,8 @@ services:
 ```
 
 ### API
-IP:8451/api
-Show status of backup less 1 day
+http://<ip>:8451/api
+`Show status of backup less 1 day`
 
 ### Backing up locally
 
