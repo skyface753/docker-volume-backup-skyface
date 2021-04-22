@@ -9,7 +9,7 @@ Docker image for performing simple backups of Docker volumes. Main features:
 - Optionally stops containers for the duration of the backup, and starts them again afterward, to ensure consistent backups
 - Optionally `docker exec`s commands before/after backing up a container, to allow easy integration with database backup tools, for example
 - Optionally ships backup metrics to [InfluxDB](https://docs.influxdata.com/influxdb/), for monitoring
-- Optionally encrypts backups with `gpg` before uploading
+- Optionally encrypts backups with `gpg` before uploading.
 
 ## Examples
 
