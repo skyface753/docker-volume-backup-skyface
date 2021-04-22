@@ -38,6 +38,8 @@ services:
 
   backup:
     image: skyface753/backup:1.0
+    ports:
+      - 8451:8451
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro    # Allow use of the "pre/post exec" feature
       - ./nextcloud:/backup/nextcloud:ro                # Mount the Nextcloud data so it gets backed up
@@ -48,6 +50,9 @@ services:
       - PRE_POST_USER=www-data                          # Execute the "php /var/www/html/occ maintenance:mode" command as the www-data User
 ```
 
+### API
+IP:8451/api
+Show status of backup less 1 day
 
 ### Backing up locally
 
