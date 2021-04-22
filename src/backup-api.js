@@ -13,20 +13,35 @@ app.use(express.json());
 appLocal.use(express.urlencoded({ extended: false }));
 appLocal.use(express.json());
 
-var success, time;
+var success, date;
 
 appLocal.post('/setData', (req, res) =>{
-    console.log("Get Data: " + req.body.success + " Time: " + req.body.Time);
-    // success = req.body.success;
     success = req.body.success;
     if(success == "true"){
-        time = new Date();
+        date = new Date();
     }
     res.send("Thanks for the Data");
 })
 
 app.get('/API', (req, res) =>{
-    res.send("Last success at: " + time);
+    var tempDate = new Date();
+    tempDate.setDate(tempDate.getDate() - 1);
+    if( typeof date == 'undefined' || !date){
+        res.send("No Backup taken since Container is running")
+    }
+    if(date.getDate() >= tempDate.getDate() ){
+        var output = {
+            status: true,
+            datum: date
+        }
+        res.send(output)
+    }else{
+        var output = {
+            status: false,
+            datum: date
+        }
+        res.send(output)
+    }
 })
 
 
