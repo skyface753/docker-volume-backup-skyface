@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
-app.get('/test', (req, res) =>{
+app.post('/test', (req, res) =>{
         console.log("Hello" + req.body)
         res.send("Zurück: " + req.body);
 

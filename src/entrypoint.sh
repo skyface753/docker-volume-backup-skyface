@@ -48,4 +48,4 @@ echo "$BACKUP_CRON_EXPRESSION root /root/backup.sh > /proc/1/fd/1 2>&1" > /etc/c
 
 # Let cron take the wheel
 echo "Starting cron in foreground with expression: $BACKUP_CRON_EXPRESSION"
-cron -f
+#cron -f
