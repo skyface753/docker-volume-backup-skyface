@@ -215,6 +215,8 @@ Variable | Default | Notes
 `INFLUXDB_CREDENTIALS` |  | Required when using `INFLUXDB_URL`; e.g. `user:pass`.
 `INFLUXDB_MEASUREMENT` | `docker_volume_backup` | Required when using `INFLUXDB_URL`.
 `TZ` | `UTC` | Which timezone should `cron` use, e.g. `America/New_York` or `Europe/Warsaw`. See [full list of available time zones](http://manpages.ubuntu.com/manpages/bionic/man3/DateTime::TimeZone::Catalog.3pm.html).
+`BACKUP_MAX_NUMBERS` | `Unlimited` | How many Backups should be stored. Have to be +1. (Want 3 Backups = BACKUP_MAX_NUMBERS = 4).
+`PRE_POST_USER` | `Docker` | Select the User for the Pre and Post Commands. Example: www-data => docker exec -u www-data $Prepost-Backup-Exec
 
 ## Metrics
 
