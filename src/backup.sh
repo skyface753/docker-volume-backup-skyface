@@ -151,7 +151,7 @@ INFLUX_LINE="$INFLUXDB_MEASUREMENT\
 "
 echo "$INFLUX_LINE" | sed 's/ /,/g' | tr , '\n'
 
-curl -X POST -d '{ "success": true, "Time": {$TIME_FINISH}}' http://localhost:8451/test
+curl -X POST -d '{ "success": true, "Time": {$TIME_FINISH}}' http://localhost:8452/setData
 
 if [ ! -z "$INFLUXDB_URL" ]; then
   info "Shipping metrics"
