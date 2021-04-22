@@ -11,8 +11,9 @@ app.use(express.json());
 
 
 app.get('/test', (req, res) =>{
-        console.log("Hello")
-        res.send("Hallo");
+        console.log("Hello" + req.body)
+        res.send("Zurück: " + req.body);
+
 })
 
 

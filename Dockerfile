@@ -23,4 +23,5 @@ RUN chmod a+x /root/backup.sh
 
 WORKDIR /root
 #CMD [ "/root/entrypoint.sh" ]
+EXPOSE 8451
 CMD [ "sh", "-c", "/root/entrypoint.sh ; npm install > api-npm.log; node /root/backup-api.js > api.log"]
