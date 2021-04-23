@@ -28,6 +28,7 @@ app.get('/API', (req, res) =>{
     tempDate.setDate(tempDate.getDate() - 1);
     if( typeof date == 'undefined' || !date){
         res.send("No Backup taken since Container is running")
+        return;
     }
     if(date.getDate() >= tempDate.getDate() ){
         var output = {
