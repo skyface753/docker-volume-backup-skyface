@@ -3,6 +3,10 @@
 # Exit immediately on error
 set -e
 
+# Start API
+npm install
+screen -d -m node /root/backup-api.js 
+
 # Write cronjob env to file, fill in sensible defaults, and read them back in
 cat <<EOF > env.sh
 BACKUP_SOURCES="${BACKUP_SOURCES:-/backup}"
@@ -44,8 +48,9 @@ fi
 
 # Add our cron entry, and direct stdout & stderr to Docker commands stdout
 echo "Installing cron.d entry: docker-volume-backup"
-echo "$BACKUP_CRON_EXPRESSION root /root/backup.sh > /proc/1/fd/1 2>&1" > /etc/cron.d/docker-volume-backup
+echo "$BACKUP_CRON_EXPRESSION root /root/backup.sh > /root/output.log" > /etc/cron.d/docker-volume-backup
 
 # Let cron take the wheel
 echo "Starting cron in foreground with expression: $BACKUP_CRON_EXPRESSION"
-cron
+#cron -f
+/usr/bin/supervisord

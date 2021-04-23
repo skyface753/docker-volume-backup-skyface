@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl cron ca-certificates unzip npm nodejs
+RUN apt-get update && apt-get install -y --no-install-recommends curl cron ca-certificates unzip npm nodejs screen supervisor rsyslog run-one
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install awscliv2 https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
@@ -18,11 +18,13 @@ COPY ./src/entrypoint.sh /root/
 COPY ./src/backup.sh /root/
 COPY ./src/backup-api.js /root/
 COPY ./src/package.json /root/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY logger.sh /bin/logger.sh
+
 RUN chmod a+x /root/entrypoint.sh
 RUN chmod a+x /root/backup.sh
+RUN chmod a+x /bin/logger.sh
 
 WORKDIR /root
-#CMD [ "/root/entrypoint.sh" ]
 EXPOSE 8451
-#CMD [ "sh", "-c", "npm install > /root/npm-api.log ; nohup node /root/backup-api.js > /root/api.log ; /root/entrypoint.sh"]
-CMD [ "sh", "-c", "/root/entrypoint.sh ; npm install > /root/api-npm.log; node /root/backup-api.js > /root/api.log"]
+CMD [ "/root/entrypoint.sh"]

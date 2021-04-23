@@ -26,6 +26,7 @@ appLocal.post('/setData', (req, res) =>{
 app.get('/API', (req, res) =>{
     var tempDate = new Date();
     tempDate.setDate(tempDate.getDate() - 1);
+    console.log("Api Requested");
     if( typeof date == 'undefined' || !date){
         res.send("No Backup taken since Container is running")
         return;
